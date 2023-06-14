@@ -4,21 +4,22 @@ import {
   DrawerItemList,
   createDrawerNavigator,
 } from "@react-navigation/drawer";
-import { ActivityIndicator,Text } from "react-native";
+import { ActivityIndicator, Text } from "react-native";
 import { useAuth } from "../../context/authContext";
 
 const DrawerNavigator = createDrawerNavigator().Navigator;
+
 const Drawer = withLayoutContext(DrawerNavigator);
 
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
+  // Ensures that reloading on `/modal` keeps a back button present.
   initialRouteName: "(tabs)",
 };
 
-function CustomerDrawerContent(props) {
+function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
-      <Text style={{ alignSelf: "center", fontSize: 20 }}>Kavin</Text>
+      <Text style={{ alignSelf: "center", fontSize: 20 }}>You</Text>
       <DrawerItemList {...props} />
     </DrawerContentScrollView>
   );
@@ -32,19 +33,13 @@ export default function DrawerLayout() {
   }
 
   return (
-    <Drawer drawerContent={(props) => <CustomerDrawerContent {...props} />}>
+    <Drawer drawerContent={(props) => <CustomDrawerContent {...props} />}>
       <Drawer.Screen
         name="(tabs)"
         options={{ headerShown: false, title: "Home" }}
       />
-      <Drawer.Screen
-        name="bookmarks"
-        options={{ headerShown: false, title: "Bookmarks" }}
-      />
-      <Drawer.Screen
-        name="twitter-blue"
-        options={{ headerShown: false, title: "Twitter Blue" }}
-      />
+      <Drawer.Screen name="bookmarks" options={{ title: "Bookmarks" }} />
+      <Drawer.Screen name="twitter-blue" options={{ title: "Twitter Blue" }} />
     </Drawer>
   );
 }

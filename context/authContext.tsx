@@ -16,10 +16,13 @@ const AuthContextPovider = ({ children }: PropsWithChildren) => {
   const router = useRouter();
 
   useEffect(() => {
-    const isAuthGroup = segments[0] === "(Auth)";
+    const isAuthGroup = segments[0] === "(auth)";
 
     if (!authToken && !isAuthGroup) {
-      router.replace("/signin");
+      console.log(
+        "User isn't yet authenticated and cannot see this page yet..."
+      );
+      router.replace("/signIn");
     }
 
     if (authToken && isAuthGroup) {

@@ -14,7 +14,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTweetsApi } from "../lib/api/tweets";
 
 const user = {
-  id: "u1",
+  id: "1",
   username: "ktjhan",
   name: "Kavin",
   image:
@@ -32,6 +32,7 @@ export default function NewTweet() {
   const { mutateAsync, isLoading, isError, error } = useMutation({
     mutationFn: createTweet,
     onSuccess: (data) => {
+      // queryClient.invalidateQueries({ queryKey: ['tweets'] })
       queryClient.setQueriesData(["tweets"], (existingTweets) => {
         return [data, ...existingTweets];
       });
@@ -45,7 +46,7 @@ export default function NewTweet() {
       setText("");
       router.back();
     } catch (e) {
-      console.log("Error: ", e.message);
+      console.log("Error:", e.message);
     }
   };
 
@@ -65,12 +66,12 @@ export default function NewTweet() {
         <View style={styles.inputContainer}>
           <Image src={user.image} style={styles.image} />
           <TextInput
-            placeholder="What's happening"
+            value={text}
+            onChangeText={setText}
+            placeholder="What's happening?"
             multiline
             numberOfLines={5}
             style={{ flex: 1 }}
-            value={text}
-            onChangeText={setText}
           />
         </View>
 
@@ -84,14 +85,6 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     flex: 1,
-  },
-  image: {
-    width: 50,
-    aspectRatio: 1,
-    borderRadius: 50,
-  },
-  inputContainer: {
-    flexDirection: "row",
   },
   buttonContainer: {
     flexDirection: "row",
@@ -107,6 +100,16 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white",
-    fontWeight: "bold",
+    fontWeight: "600",
+    fontSize: 16,
+  },
+  inputContainer: {
+    flexDirection: "row",
+  },
+  image: {
+    width: 50,
+    aspectRatio: 1,
+    borderRadius: 50,
+    marginRight: 10,
   },
 });

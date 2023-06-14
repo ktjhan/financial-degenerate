@@ -32,6 +32,7 @@ const Authenticate = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Confirm your email</Text>
+
       <TextInput
         placeholder="Email Code"
         value={code}
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderWidth: StyleSheet.hairlineWidth,
     padding: 10,
-    fontSize: 0,
+    fontSize: 20,
     marginVertical: 5,
     borderRadius: 10,
   },

@@ -15,18 +15,19 @@ const SignIn = () => {
   const router = useRouter();
 
   const onSignIn = async () => {
-    console.warn("Sign In: ", email);
+    console.warn("Sign in: ", email);
     try {
       await login({ email });
       router.push({ pathname: "/authenticate", params: { email } });
-    } catch (error) {
-      Alert.alert("Error", error.message);
+    } catch (e) {
+      Alert.alert("Error", e.message);
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Sign In or Create An Account</Text>
+      <Text style={styles.label}>Sign in or create an account</Text>
+
       <TextInput
         placeholder="Email"
         value={email}
@@ -35,7 +36,7 @@ const SignIn = () => {
       />
 
       <Pressable style={styles.button} onPress={onSignIn}>
-        <Text style={styles.buttonText}>Sign In</Text>
+        <Text style={styles.buttonText}>Sign in</Text>
       </Pressable>
     </View>
   );

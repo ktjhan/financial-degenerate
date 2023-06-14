@@ -1,5 +1,5 @@
 import { ActivityIndicator, Text } from "react-native";
-import { Tweet } from "../../../../../components/Tweet";
+import Tweet from "../../../../../components/Tweet";
 import { useSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 import { useTweetsApi } from "../../../../../lib/api/tweets";

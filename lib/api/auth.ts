@@ -9,7 +9,7 @@ export const login = async (data: { email: string }) => {
     body: JSON.stringify(data),
   });
   if (res.status !== 200) {
-    throw new Error("Error during login process");
+    throw new Error("Error during the login process");
   }
 };
 
@@ -25,10 +25,7 @@ export const authenticate = async (data: {
     body: JSON.stringify(data),
   });
   if (res.status !== 200) {
-    throw new Error("Error during login process");
-  }
-  if (res.status !== 200) {
-    throw new Error("Error during login process");
+    throw new Error("Error during the login process");
   }
   return res.json();
 };

@@ -18,10 +18,10 @@ function AvatarHeader() {
   const navigation = useNavigation();
   return (
     <Pressable onPress={() => navigation.openDrawer()}>
-    <Image
-      src="https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/vadim.png"
-      style={{ width: 40, aspectRatio: 1, borderRadius: 40, marginLeft: 10 }}
-    />
+      <Image
+        src="https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/vadim.png"
+        style={{ width: 40, aspectRatio: 1, borderRadius: 40, marginLeft: 10 }}
+      />
     </Pressable>
   );
 }

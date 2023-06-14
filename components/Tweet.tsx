@@ -1,6 +1,6 @@
-import { StyleSheet, View, Text, Image, Pressable } from "react-native";
-import { Entypo } from "@expo/vector-icons";
+import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import { TweetType } from "../types";
+import { Entypo } from "@expo/vector-icons";
 import { IconButton } from "./IconButton";
 import { Link } from "expo-router";
 
@@ -8,26 +8,28 @@ type TweetProps = {
   tweet: TweetType;
 };
 
-export const Tweet = ({ tweet }: TweetProps) => {
+const Tweet = ({ tweet }: TweetProps) => {
   return (
-    <Link
-      href={{
-        pathname: `/feed/tweet/${tweet.id}`,
-        params: { tweet: JSON.stringify(tweet) },
-      }}
-      asChild
-    >
+    <Link href={`/feed/tweet/${tweet.id}`} asChild>
       <Pressable style={styles.container}>
         <Image src={tweet.user.image} style={styles.userImage} />
+
         <View style={styles.mainContainer}>
           <View style={{ flexDirection: "row" }}>
             <Text style={styles.name}>{tweet.user.name}</Text>
-            <Text style={styles.name}>{tweet.user.username}</Text>
-            <Text style={styles.name}> • 2h</Text>
+            <Text style={styles.username}>{tweet.user.username} · 2h</Text>
+            <Entypo
+              name="dots-three-horizontal"
+              size={16}
+              color="gray"
+              style={{ marginLeft: "auto" }}
+            />
           </View>
 
           <Text style={styles.content}>{tweet.content}</Text>
-          {tweet.image && <Image src={tweet.image} styles={styles.image} />}
+
+          {tweet.image && <Image src={tweet.image} style={styles.image} />}
+
           <View style={styles.footer}>
             <IconButton icon="comment" text={tweet.numberOfComments} />
             <IconButton icon="retweet" text={tweet.numberOfRetweets} />
@@ -43,19 +45,11 @@ export const Tweet = ({ tweet }: TweetProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    borderColor: "lightgrey",
     flexDirection: "row",
+    padding: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+    borderColor: "lightgrey",
+    backgroundColor: "white",
   },
   userImage: {
     width: 50,
@@ -64,9 +58,14 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     marginLeft: 10,
+    flex: 1,
   },
   name: {
     fontWeight: "600",
+  },
+  username: {
+    color: "gray",
+    marginLeft: 5,
   },
   content: {
     lineHeight: 20,
@@ -75,16 +74,16 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     aspectRatio: 16 / 9,
-    marginTop: 10,
+    marginVertical: 10,
     borderRadius: 15,
   },
-  username: {
-    color: "gray",
-    marginLeft: 5,
-  },
+
+  // footer
   footer: {
     flexDirection: "row",
     marginVertical: 5,
     justifyContent: "space-between",
   },
 });
+
+export default Tweet;
