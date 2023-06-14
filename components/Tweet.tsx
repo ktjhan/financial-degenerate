@@ -12,7 +12,7 @@ export const Tweet = ({ tweet }: TweetProps) => {
   return (
     <Link
       href={{
-        pathname: `/tweet/${tweet.id}`,
+        pathname: `/feed/tweet/${tweet.id}`,
         params: { tweet: JSON.stringify(tweet) },
       }}
       asChild
