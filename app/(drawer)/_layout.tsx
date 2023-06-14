@@ -4,7 +4,8 @@ import {
   DrawerItemList,
   createDrawerNavigator,
 } from "@react-navigation/drawer";
-import {Text} from 'react-native';
+import { ActivityIndicator,Text } from "react-native";
+import { useAuth } from "../../context/authContext";
 
 const DrawerNavigator = createDrawerNavigator().Navigator;
 const Drawer = withLayoutContext(DrawerNavigator);
@@ -17,13 +18,19 @@ export const unstable_settings = {
 function CustomerDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
-        <Text style={{ alignSelf: 'center', fontSize: 20 }}>Kavin</Text>
+      <Text style={{ alignSelf: "center", fontSize: 20 }}>Kavin</Text>
       <DrawerItemList {...props} />
     </DrawerContentScrollView>
   );
 }
 
 export default function DrawerLayout() {
+  const { authToken } = useAuth();
+
+  if (!authToken) {
+    return <ActivityIndicator />;
+  }
+
   return (
     <Drawer drawerContent={(props) => <CustomerDrawerContent {...props} />}>
       <Drawer.Screen

@@ -1,22 +1,44 @@
-import { FlatList, StyleSheet, View, Pressable } from "react-native";
-
+import {
+  FlatList,
+  StyleSheet,
+  View,
+  Text,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
+import { useState, useEffect } from "react";
 import { Tweet } from "../../../../components/Tweet";
-import tweets from "../../../../assets/data/tweets";
 import { Entypo } from "@expo/vector-icons";
 import { Link } from "expo-router";
+import { useTweetsApi } from "../../../../lib/api/tweets";
+import { useQuery } from "@tanstack/react-query";
 
 export default function TabOneScreen() {
+  const { listTweets } = useTweetsApi();
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["tweets"],
+    queryFn: listTweets,
+  });
+
+  if (isLoading) {
+    return <ActivityIndicator />;
+  }
+
+  if (error) {
+    return <Text>{error.message}</Text>;
+  }
+
   return (
     <View style={styles.page}>
-      <FlatList
-        data={tweets}
-        renderItem={({ item }) => {
-          <Tweet tweet={item} />;
-        }}
-      />
-
-      <Link href="/new-tweet" asChild style={styles.floatingButton}>
-        <Entypo name="plus" size={24} color="black" />
+      <FlatList data={data} renderItem={({ item }) => <Tweet tweet={item} />} />
+      <Link href="/new-tweet" asChild>
+        <Entypo
+          name="plus"
+          size={24}
+          color="white"
+          style={styles.floatingButton}
+        />
       </Link>
     </View>
   );
@@ -43,6 +65,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
 });
