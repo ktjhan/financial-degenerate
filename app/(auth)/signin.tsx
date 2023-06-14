@@ -18,8 +18,8 @@ const SignIn = () => {
     try {
       //   await login({ email });
       router.push({ pathname: "/authenticate", params: { email } });
-    } catch (e) {
-      Alert.alert("Error", e.message);
+    } catch (error) {
+      Alert.alert("Error", error.message);
     }
   };
 
